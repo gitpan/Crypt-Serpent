@@ -1,6 +1,6 @@
 /*
     author: John Hughes (jhughes@frostburg.edu)
-    date: 9/01
+    date: 11/01
 
     I am indebted to Marc Lehmann, the author of the Crypt::Twofish2
     module, as I used his code as a guide.
@@ -27,6 +27,14 @@ typedef struct cryptstate
 MODULE = Crypt::Serpent     PACKAGE = Crypt::Serpent
 
 PROTOTYPES: ENABLE
+
+BOOT:
+{
+	HV* stash = gv_stashpv("Crypt::Serpent", 0);
+
+	newCONSTSUB(stash, "keysize", newSViv(32));
+	newCONSTSUB(stash, "blocksize", newSViv(16));
+}
 
 Crypt::Serpent
 new(class, key, mode=MODE_ECB)

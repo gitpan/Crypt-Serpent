@@ -1,6 +1,6 @@
 =head1 NAME
 
-Crypt::Serpent - Perl Serpent block cipher encryption module
+Crypt::Serpent - Crypt::CBC compliant Serpent block cipher encryption module
 
 =head1 SYNOPSIS
 
@@ -46,7 +46,7 @@ package Crypt::Serpent;
 
 require DynaLoader;
 
-$VERSION = 0.01;
+$VERSION = 0.50;
 @ISA = qw/DynaLoader/;
 
 bootstrap Crypt::Serpent $VERSION;

@@ -1,6 +1,6 @@
 NAME
 
-    Crypt::Serpent - Perl Serpent block cipher encryption module
+    Crypt::Serpent - Crypt::CBC compliant Serpent block cipher encryption module
 
 SYNOPSIS
 

@@ -1,5 +1,9 @@
 Revision history for Perl extension Crypt::Serpent
 
+0.50   November 12, 2001
+
+    -- Made the distribution Crypt::CBC compliant.
+
 0.01   September 24, 2001
 
     -- Right now, this module only supports ECB mode. I'll try
