@@ -1,5 +1,10 @@
 Revision history for Perl extension Crypt::Serpent
 
+1.01   March 30, 2002
+
+    -- Removed the line continuation characters from serpentsboxes.h so
+       that it'll compile on Solaris and FreeBSD.
+
 1.0    March 28, 2002
 
     -- Fixed a significant bug regarding the use of the makeKey function.

@@ -46,7 +46,7 @@ package Crypt::Serpent;
 
 require DynaLoader;
 
-$VERSION = 1.0;
+$VERSION = 1.01;
 @ISA = qw/DynaLoader/;
 
 bootstrap Crypt::Serpent $VERSION;
