@@ -1,5 +1,10 @@
 Revision history for Perl extension Crypt::Serpent
 
+1.0    March 28, 2002
+
+    -- Fixed a significant bug regarding the use of the makeKey function.
+    -- Incorporated AES test vectors into test.pl and t/00_load.t.
+
 0.50   November 12, 2001
 
     -- Made the distribution Crypt::CBC compliant.

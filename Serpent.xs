@@ -40,11 +40,12 @@ Crypt::Serpent
 new(class, key, mode=MODE_ECB)
 	SV*	class
 	SV*	key
-    int	mode
+    unsigned char mode
 
     CODE:
     {
         STRLEN keySize;
+        char str[65];
           
         if (! SvPOK(key))
             croak("Error: key must be a string scalar!");
@@ -56,8 +57,12 @@ new(class, key, mode=MODE_ECB)
 
         Newz(0, RETVAL, 1, struct cryptstate);
           
-        makeKey(&RETVAL->ki, DIR_ENCRYPT, keySize, SvPV_nolen(key));
-        cipherInit(&RETVAL->ci, mode, 0);
+        serpent_convert_to_string(keySize << 3, SvPV_nolen(key), str);
+
+        if (makeKey(&RETVAL->ki, DIR_ENCRYPT, keySize << 3, str) != TRUE)
+            croak("Error: makeKey failed.");
+        if (cipherInit(&RETVAL->ci, mode, 0) != TRUE)
+            croak("Error: cipherInit failed.");
     }         
 	OUTPUT:
         RETVAL
@@ -71,7 +76,6 @@ encrypt(self, data)
 
     CODE:
     {
-        SV* res;
         STRLEN size;
         void* rawbytes = SvPV(data, size);
 

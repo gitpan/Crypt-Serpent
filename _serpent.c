@@ -55,11 +55,9 @@ int makeKey(keyInstance *key, BYTE direction, int keyLen,
 
   key->direction=direction;
   key->keyLen=keyLen;
-
   strncpy(key->keyMaterial, keyMaterial, MAX_KEY_SIZE+1);
 
   rc=serpent_convert_from_string(keyLen, keyMaterial, key->key);
-
   if(rc<=0)
     return BAD_KEY_MAT;
 
@@ -114,7 +112,7 @@ int makeKey(keyInstance *key, BYTE direction, int keyLen,
     for(j=0; j<4; j++)
       key->subkeys[i][j] = k[4*i+j];
 
-  return 1;
+  return TRUE;
 }
 
 int cipherInit(cipherInstance *cipher, BYTE mode, char *IV)
@@ -132,12 +130,11 @@ int cipherInit(cipherInstance *cipher, BYTE mode, char *IV)
   if(mode != MODE_ECB)
     {
       rc=serpent_convert_from_string(cipher->blockSize, IV, cipher->IV);
-
       if(rc<=0)
 	return BAD_CIPHER_STATE;
     }
 
-  return 1;
+  return TRUE;
 }
 
 int blockEncrypt(cipherInstance *cipher,
@@ -537,19 +534,14 @@ serpent_decrypt(unsigned long ciphertext[4],
   plaintext[3] = x3;
 }
 
-/*#define min(x,y) (((x)<(y))?(x):(y))*/
+#define min(x,y) (((x)<(y))?(x):(y))
 
 int serpent_convert_from_string(int len, char *str, unsigned long *val)
 /* the size of val must be at least the next multiple of 32 */
 /* bits after len bits */
 {
   int is, iv;
-  int slen;
-  
-  if(strlen(str)<((len+3)/4))
-      slen = strlen(str);
-  else
-      slen = (len+3)/4;
+  int slen=min(strlen(str), (len+3)/4);
 
   if(len<0)
     return -1;		/* Error!!! */
